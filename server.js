@@ -76,7 +76,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.route("/profile").get(ensureAuthenticated, (req, res) => {
-  res.render("profile");
+  res.render("profile", { username: req.user.username });
 });
 
 passport.serializeUser((user, done) => {
