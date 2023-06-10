@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./sample.env" });
+require("dotenv").config({ path: "./.env" });
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
