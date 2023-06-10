@@ -50,12 +50,24 @@ myDB(async (client) => {
     res.render("index", {
       title: "Connected to Database",
       message: "Please login",
+      showLogin: true,
     });
   });
 }).catch((e) => {
   app.route("/").get((req, res) => {
     res.render("index", { title: e, message: "Unable to connect to database" });
   });
+});
+
+app.route("/login").post((req, res) => {
+  passport.authenticate("local", { failureRedirect: "/" }),
+    (req, res) => {
+      res.redirect("/profile");
+    };
+});
+
+app.route("/profile").get((req, res) => {
+  res.render("profile");
 });
 
 passport.serializeUser((user, done) => {
@@ -67,10 +79,6 @@ passport.deserializeUser((id, done) => {
     done(null, doc);
   });
 });
-
-// app.route("/").get((req, res) => {
-//   res.render("index", { title: "Hello", message: "Please log in" });
-// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
