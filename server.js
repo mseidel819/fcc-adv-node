@@ -59,12 +59,14 @@ myDB(async (client) => {
   });
 });
 
-app.route("/login").post((req, res) => {
-  passport.authenticate("local", { failureRedirect: "/" }),
+app
+  .route("/login")
+  .post(
+    passport.authenticate("local", { failureRedirect: "/" }),
     (req, res) => {
       res.redirect("/profile");
-    };
-});
+    }
+  );
 
 app.route("/profile").get((req, res) => {
   res.render("profile");
